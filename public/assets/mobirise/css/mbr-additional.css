@@ -1838,6 +1838,9 @@ body {
   padding-top: 135px;
   padding-bottom: 135px;
   background-image: url("../../../assets/images/pttlogo2-2000x667.jpg");
+  width: auto ;
+  max-width: 100% ;
+  height: auto ;
 }
 .cid-ricCsSnNom {
   padding-top: 135px;
