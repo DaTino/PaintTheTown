@@ -12,21 +12,15 @@ const PORT = process.env.port || 8080;
 const HOST = process.env.host || 'localhost';
 const ENV = app.get('env');
 
-app.engine('hbs', hbs({
-  extname: '.hbs',
-  defaultLayout: 'main',
-  layoutsDir: __dirname + '/views/layouts/',
-  partialsDir: __dirname + '/views/partials/'
-}));
+app.engine('hbs', hbs({extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(bodyParser.json());
+app.use(bodyParser.json());~
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  console.log('testing');
   res.render('index', {
     title: 'Paint the Town'
   });
@@ -34,6 +28,34 @@ app.get('/', (req, res) => {
 
 app.post('/test', (req, res) => {
   console.log('testing');
+});~
+
+app.use((req, res, next) => {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+});
+
+if (app.get('env') === 'development') {
+    app.use((err, req, res, next) => {
+        res.status(err.status || 500);
+        res.render('error', {
+            status: err.status,
+            message: err.message,
+            error: err
+        });
+    });
+}
+
+app.use((err, req, res, next) => {
+    app.use((err, req, res, next) => {
+        res.status(err.status || 500);
+        res.render('error', {
+            status: err.status,
+            message: err.message,
+            error: {}
+        });
+    });
 });
 
 server.listen(PORT, HOST, () => {
