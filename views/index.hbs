@@ -52,9 +52,7 @@
                 <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">Age:</label>
                 <div class="col-md-4" style=" display: block; margin: 0 auto;">
                   <select id="selectAge" name="selectAge" class="form-control">
-                    {{ #each ages }}
-                    <option value={{ @index }}>{{ this }}</option>
-                    {{ /each }}
+                    
                   </select>
                 </div>
               </div>
@@ -131,8 +129,8 @@
             </div>
             <form action="/test" method="post">
               <input class="block" type="submit" value="Paint" style="color:white;"/>
-           
-			
+
+
 			</form>
           </fieldset>
         </div>
