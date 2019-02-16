@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
   <link rel="shortcut icon" href="/assets/images/logo2.png" type="image/x-icon">
   <meta name="description" content="Search for locations and ideas for YOUR night out with Paint The Town!">
-  <title>{{ title }}</title>
+
   <link rel="stylesheet" href="/assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="/assets/tether/tether.min.css">
   <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
@@ -130,10 +130,8 @@
               </div>
             </div>
             <form action="/test" method="post">
-              <input class="block" type="submit" value="Paint" style="color:white;"/>
-           
-			
-			</form>
+              <input class="block" type="submit" value="Paint" style="color:white;" onclick="location.href='\search.php?search='+ document.getElementById('selectAge').value+'&search2='+document.getElementById('selectOut').value + '&search3='+document.getElementById('selectBudget').value + '&search4='+document.getElementById('pac-input').value;" />
+            </form>
           </fieldset>
         </div>
       </div>

@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
-  console.log('testing');
+  res.redirect('index');
 });
 
 app.use((req, res, next) => {

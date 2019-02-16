@@ -22,8 +22,7 @@
 }
 
 .block:hover {
-  animation-name: buttonRainbow;
-  animation-duration: 2s;
+  animation: buttonRainbow 3s infinite;
 }
 
 #pac-input {
