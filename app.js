@@ -16,7 +16,7 @@ app.engine('hbs', hbs({extname: '.hbs'}));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-app.use(bodyParser.json());~
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 
 app.post('/test', (req, res) => {
   console.log('testing');
-});~
+});
 
 app.use((req, res, next) => {
     var err = new Error('Not Found');
