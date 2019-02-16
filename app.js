@@ -6,8 +6,6 @@ const process = require('process');
 const bodyParser = require('body-parser');
 const config = require('./config');
 
-const randeats = require('./randeats');
-
 const app = express();
 const server = require('http').Server(app);
 
@@ -25,17 +23,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Paint the Town'
+    title: 'Paint the Town',
+    ages: ['test1', 'test2', 'test3']
   });
+});
+
+app.get('/redirect', (req, res) => {
+  res.render('redirect');
 });
 
 app.post('/test', (req, res) => {
   res.redirect('index');
-});
-
-app.get('/titties', (req, res) => {
-  console.log('titties');
-  return randeats.randeats(req, res);
 });
 
 app.use((req, res, next) => {
