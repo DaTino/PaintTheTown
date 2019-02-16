@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const process = require('process');
 const bodyParser = require('body-parser');
+const config = require('./config');
 
 const app = express();
 const server = require('http').Server(app);
@@ -22,7 +23,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
   res.render('index', {
-    title: 'Paint the Town'
+    title: 'Paint the Town',
+    ages: ['13 to 21', '21 to 65', '65+']
   });
 });
 
