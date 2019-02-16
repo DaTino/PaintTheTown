@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
   <link rel="stylesheet" href="/css/styles.css" type="text/css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 </head>
 
 <body>
@@ -52,8 +53,7 @@
                 <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">Age:</label>
                 <div class="col-md-4" style=" display: block; margin: 0 auto;">
                   <select id="selectAge" name="selectAge" class="form-control">
-                    {{ #each ages }}
-                    <option value={{ @index }}>{{ this }}</option>
+                    {{ #each ages}}
                     {{ /each }}
                   </select>
                 </div>
@@ -131,8 +131,8 @@
             </div>
             <form action="/test" method="post">
               <input class="block" type="submit" value="Paint" style="color:white;"/>
-           
-			
+
+
 			</form>
           </fieldset>
         </div>

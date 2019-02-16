@@ -24,8 +24,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Paint the Town',
-    ages: ['13 to 21', '21 to 65', '65+']
+    ages: ['test1', 'test2', 'test3']
   });
+});
+
+app.get('/redirect', (req, res) => {
+  res.render('redirect');
 });
 
 app.post('/test', (req, res) => {
