@@ -45,7 +45,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="media-container-column col-lg-8" data-form-type="formoid">
-          <form id="myForm" class="form-horizontal">
+          <form id="myForm" class="form-horizontal" action="/map" method="post">
             <!-- Form Name -->
             <!-- <legend style="text-align:center">Let's paint the town!</legend> -->
             <!-- Select Basic -->
@@ -82,7 +82,7 @@
                 <input id="pac-input" class="controls" type="text" name="selectLocation" placeholder="Type a location here...">
               </div>
             </div>
-            <button id="paint" class="block col-md-10" onclick="abc()">Paint!</button>
+            <input id="paint" class="block col-md-10" type="submit" value="Paint!" onclick="document.getElementById('myForm').submit();" />
           </form>
         </div>
       </div>

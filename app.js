@@ -57,49 +57,50 @@ app.post('/map', (req, realres) => {
 
   var age = data.selectAge;
   var akey = "";
-  if (age = "13-19") {
+  if (age = 1) {
     akey = "teen";
   }
-  else if (age == "20-29") {
+  else if (age == 2) {
     akey = "young%20adult";
   }
-  else if (age == "30-39" || "40-49") {
+  else if (age == 3 || 4) {
     akey = "professionals";
   }
-  else if (age == "50-59" || "60+") {
+  else if (age == 5 || 6) {
     akey = "seniors";
   }
 
   var outing = data.selectOut;
+  console.log(outing);
   var outkey1 = "";
   var outkey2 = "";
   var outkey3 = "";
   var outkey4 = "";
-  if (outing == "Business") {
+  if (outing == 1) {
     outkey1 = "fine%20dining";
     outkey2 = "cocktails";
     outkey3 = "cafe";
     outkey4 = "wine";
   }
-  else if (outing == "Date") {
+  else if (outing == 2) {
     outkey1 = "restaurant";
     outkey2 = "bar";
     outkey3 = "theater";
     outkey4 = "park";
   }
-  else if (outing == "Party") {
+  else if (outing == 3) {
     outkey1 = "club";
     outkey2 = "bar";
     outkey3 = "sports";
     outkey4 = "music";
   }
-  else if (outing == "Show") {
+  else if (outing == 4) {
     outkey1 = "music";
     outkey2 = "theater";
     outkey3 = "movie";
     outkey4 = "comedy";
   }
-  else if (outing == "Sports") {
+  else if (outing == 5) {
     outkey1 = "golf";
     outkey2 = "bowling";
     outkey3 = "sports";
@@ -107,20 +108,21 @@ app.post('/map', (req, realres) => {
   }
 
   var budget = data.selectBudget;
+  console.log(budget);
   var bkey = ""
-  if (budget == "Free" ) {
+  if (budget == 1 ) {
     bkey = "0";
   }
-  else if (budget == "$") {
+  else if (budget == 2) {
     bkey = "1";
   }
-  else if (budget == "$") {
+  else if (budget == 3) {
     bkey = "2";
   }
-  else if (budget == "$$") {
+  else if (budget == 4) {
     bkey = "3";
   }
-  else if (budget == "$$$") {
+  else if (budget == 5) {
     bkey = "4";
   }
 
@@ -146,8 +148,8 @@ app.post('/map', (req, realres) => {
         var locations = places.results;
         //console.log(locations);
         var myObj = JSON.parse(body);
-        //console.log(myObj)
-        console.log(myObj.results[1])
+        console.log(myObj)
+        // console.log(myObj.results[1])
 
         var mylats = [];
         var mylngs = [];
