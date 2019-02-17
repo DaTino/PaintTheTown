@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
     title: 'Paint the Town',
     ages: config.userInput.ages,
     events: config.userInput.events,
-    budgets: config.userInput.ages
+    budgets: config.userInput.budgets
   });
 });
 

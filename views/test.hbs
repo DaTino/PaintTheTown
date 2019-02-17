@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="initial-scale=1.0, initial-scale=1">
     <meta charset="utf-8">
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -62,9 +62,7 @@
 
       function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' : 'Error: Your browser doesn\'t support geolocation.');
         infoWindow.open(map);
       }
     </script>

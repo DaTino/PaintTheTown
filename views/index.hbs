@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.9.3, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="shortcut icon" href="/assets/images/logo2.png" type="image/x-icon">
   <meta name="description" content="Search for locations and ideas for YOUR night out with Paint The Town!">
   <title>{{ title }}</title>
@@ -17,13 +17,12 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
   <link rel="stylesheet" href="/css/styles.css" type="text/css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 </head>
 
 <body>
   <section class="header1 cid-ricuqQJmgu" id="header1-4" style="border-bottom: solid; border-bottom-width: 20px; border-color: #e17055;">
-    <img src="https://i.ibb.co/DtrfJdt/pttlogo3.jpg" height="100%" width="100%"/>
-	<div class="container">
+    <img src="https://i.ibb.co/DtrfJdt/pttlogo3.jpg" height="100%" width="100%" />
+    <div class="container">
       <div class="row justify-content-md-center">
         <div class="mbr-white col-md-10">
         </div>
@@ -36,7 +35,7 @@
       <div class="row justify-content-center">
         <div class="title col-12 col-lg-8">
           <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">
-            Are you ready to Paint the Town?
+            Are you ready to paint the town?
           </h2>
           <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-5">Fill in the fields below to start planning YOUR night out!</h3>
         </div>
@@ -50,13 +49,9 @@
             <!-- <legend style="text-align:center">Let's paint the town!</legend> -->
             <!-- Select Basic -->
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age...</label>
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <select id="selectAge" name="selectAge" class="form-control">
-                  {{#each ages}}
-                    <option value={{@index}}>{{this}}</option>
-                  {{/each}}
-                </select>
+                <input class="controls" style="width: 100%; padding-left: 8px; height: 50px; background-color: #F8F8F8;" type="text" placeholder="Type your age here...">
               </div>
             </div>
             <!-- Select Basic -->
@@ -71,7 +66,7 @@
               </div>
             </div>
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectBudget">My budget is...</label>
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectBudget">My budget matches...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectBudget" name="selectBudget" class="form-control">
                   {{#each this.budgets}}
@@ -81,51 +76,12 @@
               </div>
             </div>
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectAddress">My city is...</label>
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectAddress">The location is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <input id="pac-input" class="controls" type="text" placeholder="Type City Here">
-
-                <div id="map" class="col-md-4"></div>
-                <script>
-                  // This example adds a search box to a map, using the Google Place Autocomplete
-                    // feature. People can enter geographical searches. The search box will return a
-                    // pick list containing a mix of places and predicted search terms.
-
-                    // This example requires the Places library. Include the libraries=places
-                    // parameter when you first load the API. For example:
-                    // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
-                    function initAutocomplete() {
-                      // Create the search box and link it to the UI element.
-                      var input = document.getElementById('pac-input');
-                      var searchBox = new google.maps.places.SearchBox(input);
-
-                      var markers = [];
-                      // Listen for the event fired when the user selects a prediction and retrieve
-                      // more details for that place.
-                      searchBox.addListener('places_changed', function() {
-                        var places = searchBox.getPlaces();
-
-                        if (places.length == 0) {
-                          return;
-                        }
-
-                        // Clear out the old markers.
-                        markers.forEach(function(marker) {
-                          marker.setMap(null);
-                        });
-                        markers = [];
-
-                        // For each place, get the icon, name and location.
-                        var bounds = new google.maps.LatLngBounds();
-
-                      });
-                    }
-                  </script>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM&libraries=places&callback=initAutocomplete" async defer></script>
+                <input id="pac-input" class="controls" type="text" placeholder="Type a location here...">
               </div>
             </div>
-            <input class="block" type="submit" value="Paint!" style="color:white; text-align: center;" onclick="document.getElementById('myForm').submit()" />
+            <input class="block col-md-10" type="submit" value="Paint!" style="color:white; text-align: center;" onclick="document.getElementById('myForm').submit()" />
           </form>
         </div>
       </div>
@@ -162,7 +118,7 @@
           </div>
           <div class="card-box align-center">
             <h4 class="card-title mbr-fonts-style display-5">Updated in Real-Time</h4>
-            <p class="mbr-text mbr-fonts-style display-7">Paint the Town uses Google API's to make sure the information we provide you is updated from the moment you search!</p>
+            <p class="mbr-text mbr-fonts-style display-7">Paint the Town uses Google's API's to make sure the information we provide you is updated from the moment you search!</p>
           </div>
         </div>
       </div>
@@ -187,7 +143,10 @@
   <script src="/assets/smoothscroll/smooth-scroll.js"></script>
   <script src="/assets/theme/js/script.js"></script>
   <script src="/assets/formoid/formoid.min.js"></script>
-  <script src="/js/main.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw&callback=initMap"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+  <script src="/js/map.js"></script>
+  <script src="/js/charts.js"></script>
 </body>
 
 </html>
