@@ -79,7 +79,7 @@ app.post('/map', (req, res) => {
         var places = JSON.parse(body);
         var locations = places.results;
         console.log(locations);
-        res.json(locations);
+        //response.json(locations);
       });
     }).on('error', function() {
       console.log("Got error: I broke");
