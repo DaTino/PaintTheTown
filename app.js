@@ -133,6 +133,8 @@ app.post('/map', (req, realres) => {
   });
 });
 
+app.get('/locations', (req))
+
 app.get('/test', (req, res) => {
   res.render('test');
 });
