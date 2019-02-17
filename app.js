@@ -85,6 +85,10 @@ app.get('/test', (req, res) => {
   res.render('test');
 });
 
+app.get('/test2', (req, res) => {
+  res.render('test2');
+});
+
 app.get('/titties', (req, res) => {
   var key = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
   var location = encodeURIComponent(req.query.location);
