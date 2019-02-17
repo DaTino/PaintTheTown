@@ -32,17 +32,13 @@ function initMap() {
 
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  console.log('testing1');
 
   var markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
-  console.log(searchBox);
   searchBox.addListener('places_changed', function() {
     var places = searchBox.getPlaces();
-    console.log('places');
     if (places.length == 0) {
-      console.log('0');
       return;
     }
 
@@ -54,7 +50,6 @@ function initMap() {
 
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
-    console.log('end');
   });
 }
 
