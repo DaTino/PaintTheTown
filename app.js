@@ -15,7 +15,7 @@ var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
 const app = express();
 const server = require('http').Server(app);
 
-const PORT = process.env.port || 8080;
+const PORT = process.env.port || 8001;
 const HOST = process.env.host || 'localhost';
 const ENV = app.get('env');
 
@@ -37,10 +37,46 @@ app.get('/', (req, res) => {
 });
 
 app.post('/map', (req, res) => {
-   var data = req.body;
-   var age = data.selectAge;
-   var outing = data.selectOut;
-   var budget = data.selectBudget;
+  var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM"
+   //var data = req.body;
+   var age = "21" //data.selectAge;
+   var outing = "date night" //data.selectOut;
+   var budget = "2" //data.selectBudget;
+   var location = "St. Louis, Missouri" //data.selectLocation;
+   var radius = "16090" //data.selectRadius * 1609 //meters conversion;
+
+   var https = require('https');
+   var url = "http://maps.googleapis.com/maps/api/place/nearbysearch/json?"
+    + "key=" + key + "&location=" + location + "&radius=" + radius
+    + "&keyword=" + outing + "&maxbudget" + budget;
+    console.log(url);
+    https.get(url, function(response) {
+        var body ='';
+        response.on('data', function(chunk) {
+          body += chunk;
+        });
+
+      response.on('end', function() {
+        var place = JSON.parse(body);
+        var locations = places.results;
+        console.log(locations);
+        res.json(locations);
+      });
+    }).on('error', function() {
+        console.log("Got error: I broke" );
+    });
+
+   //api stuff called
+   /*
+   https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+   key
+   locations
+   radius
+   maxprice
+   keyword
+   rankby=prominence
+
+   */
 
    res.render('redirect');
 });
