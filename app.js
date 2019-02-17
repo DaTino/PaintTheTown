@@ -39,7 +39,11 @@ app.post('/map', (req, res) => {
    var outing = data.selectOut;
    var budget = data.selectBudget;
 
-   res.render('redirect');
+   res.render('map');
+});
+
+app.get('/test', (req, res) => {
+  res.render('test');
 });
 
 app.get('/titties', (req, res) => {
