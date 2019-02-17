@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,14 +44,14 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="media-container-column col-lg-8" data-form-type="formoid">
-          <form id="myForm" class="form-horizontal" action="/map" method="post">
+          <form id="myForm" class="form-horizontal" action="#map" method="post">
             <!-- Form Name -->
             <!-- <legend style="text-align:center">Let's paint the town!</legend> -->
             <!-- Select Basic -->
             <div class="form-group" style="text-align:center; margin-top: 12px">
               <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <input class="controls" style="width: 100%; padding-left: 8px; height: 50px; background-color: #F8F8F8;" type="text" name="selectAge" placeholder="Type your age here...">
+                <input id="selectAge" class="controls" style="width: 100%; padding-left: 8px; height: 50px; background-color: #F8F8F8;" type="text" name="selectAge" placeholder="Type your age here..." value="{{ age }}">
               </div>
             </div>
             <!-- Select Basic -->
@@ -61,7 +60,7 @@
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectOut" name="selectOut" class="form-control">
                   {{#each this.events}}
-                    <option value={{@index}}>{{this}}</option>
+                    <option value={{@index}} {{#if_eq @index ../currentEvent}} selected {{/if_eq}}>{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -71,7 +70,7 @@
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectBudget" name="selectBudget" class="form-control">
                   {{#each this.budgets}}
-                    <option value={{@index}}>{{this}}</option>
+                    <option value={{@index}} {{#if_eq @index ../currentBudget}} selected {{/if_eq}}>{{this}}</option>
                   {{/each}}
                 </select>
               </div>
@@ -79,7 +78,7 @@
             <div class="form-group" style="text-align:center; margin-top: 12px">
               <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectLocation">The location is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <input id="pac-input" class="controls" type="text" name="selectLocation" placeholder="Type a location here...">
+                <input id="pac-input" class="controls" type="text" name="selectLocation" placeholder="Type a location here..." value="{{ location }}">
               </div>
             </div>
             <input id="paint" class="block col-md-10" type="submit" value="Paint!" onclick="document.getElementById('myForm').submit();" />
@@ -146,7 +145,7 @@
   </section>
 
   <!--<script src="/assets/web/assets/jquery/jquery.min.js"></script>-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="/assets/popper/popper.min.js"></script>
   <script src="/assets/tether/tether.min.js"></script>
   <script src="/assets/bootstrap/js/bootstrap.min.js"></script>

@@ -6,7 +6,7 @@ function initMap() {
       lat: -34.397,
       lng: 150.644
     },
-    zoom: 12
+    zoom: 16
   });
   infoWindow = new google.maps.InfoWindow;
 
@@ -52,9 +52,32 @@ function initMap() {
     var bounds = new google.maps.LatLngBounds();
   });
 
-  $.get('/map', function (data, status) {
-    console.log(data);
-  });
+  var age = $('#selectAge').val();
+  var outing = $('#selectOut').val();
+  var budget = $('#selectBudget').val();
+  var location = $('#pac-input').val();
+
+  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
+
+  if (age && outing && budget && location) {
+    $.getJSON('/map', function(data, status) {
+      for (var i = 0; i < data.length; i++) {
+        var loc = data[i].split(',');
+        console.log(loc);
+
+        var myLatlng = new google.maps.LatLng(parseFloat(loc[0]), parseFloat(loc[1]));
+        var mapOptions = {
+        }
+
+        var marker = new google.maps.Marker({
+          position: myLatlng,
+          title: "Hello World!"
+        });
+
+        marker.setMap(map);
+      }
+    });
+  }
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {

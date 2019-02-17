@@ -1,5 +1,5 @@
 const express = require('express');
-const hbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 const http = require('http');
 const https = require('https');
 const path = require('path');
@@ -18,6 +18,7 @@ const ngOptions = {
   formatter: null // 'gpx', 'string', ...
 };
 const geocoder = nodeGeocoder(ngOptions);
+const cors = require('cors');
 
 var albertoKey = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
 var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
@@ -29,12 +30,23 @@ const PORT = process.env.port || 8080;
 const HOST = process.env.host || 'localhost';
 const ENV = app.get('env');
 
-app.engine('hbs', hbs({
-  extname: '.hbs'
-}));
+var hbs = exphbs.create({
+  extname: '.hbs',
+  helpers: {
+    if_eq: function(a, b, opts) {
+      if (a == b) {
+        return opts.fn(this);
+      } else {
+        return opts.inverse(this);
+      }
+    }
+  }
+});
+app.engine('hbs', hbs.engine);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
@@ -44,23 +56,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Paint the Town',
-    ages: config.userInput.ages,
+    age: "",
     events: config.userInput.events,
     budgets: config.userInput.budgets,
-    location: null
+    location: "",
+    currentEvent: "",
+    currentBudget: ""
   });
 });
 
 app.post('/', (req, res) => {
-  var age = req.selectAge;
-  var outing = req.selectOut;
-  var budget = req.selectBudget;
-  var location = req.selectLocation;
+  var age = req.body.selectAge;
+  var outing = req.body.selectOut;
+  var budget = req.body.selectBudget;
+  var location = req.body.selectLocation;
 
   console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
 
   res.render('index', {
-    title: 'Paint the Town'
+    title: 'Paint the Town',
+    age: age,
+    events: config.userInput.events,
+    budgets: config.userInput.budgets,
+    location: location,
+    currentEvent: outing,
+    currentBudget: budget
   });
 });
 
@@ -68,22 +88,19 @@ app.get('/map', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   var data = req.body;
 
-  var age = data.selectAge;
+  var age = data.selectAge || 1;
   var akey = "";
-  if (age = 1) {
+  if (age == 1) {
     akey = "teen";
-  }
-  else if (age == 2) {
+  } else if (age == 2) {
     akey = "young%20adult";
-  }
-  else if (age == 3 || 4) {
+  } else if (age == 3 || age == 4) {
     akey = "professionals";
-  }
-  else if (age == 5 || 6) {
+  } else if (age == 5 || age == 6) {
     akey = "seniors";
   }
 
-  var outing = data.selectOut;
+  var outing = data.selectOut || 1;
   console.log(outing);
   var outkey1 = "";
   var outkey2 = "";
@@ -94,52 +111,44 @@ app.get('/map', (req, realres) => {
     outkey2 = "cocktails";
     outkey3 = "cafe";
     outkey4 = "wine";
-  }
-  else if (outing == 2) {
+  } else if (outing == 2) {
     outkey1 = "restaurant";
     outkey2 = "bar";
     outkey3 = "theater";
     outkey4 = "park";
-  }
-  else if (outing == 3) {
+  } else if (outing == 3) {
     outkey1 = "club";
     outkey2 = "bar";
     outkey3 = "sports";
     outkey4 = "music";
-  }
-  else if (outing == 4) {
+  } else if (outing == 4) {
     outkey1 = "music";
     outkey2 = "theater";
     outkey3 = "movie";
     outkey4 = "comedy";
-  }
-  else if (outing == 5) {
+  } else if (outing == 5) {
     outkey1 = "golf";
     outkey2 = "bowling";
     outkey3 = "sports";
     outkey4 = "park";
   }
 
-  var budget = data.selectBudget;
+  var budget = data.selectBudget || 1;
   console.log(budget);
   var bkey = ""
-  if (budget == 1 ) {
+  if (budget == 1) {
     bkey = "0";
-  }
-  else if (budget == 2) {
+  } else if (budget == 2) {
     bkey = "1";
-  }
-  else if (budget == 3) {
+  } else if (budget == 3) {
     bkey = "2";
-  }
-  else if (budget == 4) {
+  } else if (budget == 4) {
     bkey = "3";
-  }
-  else if (budget == 5) {
+  } else if (budget == 5) {
     bkey = "4";
   }
 
-  var location = data.selectLocation;
+  var location = data.selectLocation || "St. Louis, MO";
 
   var radius = 8045; //data.selectRadius * 1609 //meters conversion
 
@@ -192,7 +201,7 @@ app.get('/map', (req, realres) => {
           console.log(markerTitles)
         }
 
-        realres.json(JSON.stringify(markerLocations));
+        realres.json(markerLocations);
         //response.json(locations);
       });
     });
@@ -209,34 +218,6 @@ app.get('/test2', (req, res) => {
   res.render('test2');
 });
 
-app.use((req, res, next) => {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-
-if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.render('error', {
-      status: err.status,
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-
-app.use((err, req, res, next) => {
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500);
-    res.render('error', {
-      status: err.status,
-      message: err.message,
-      error: {}
-    });
-  });
-});
 
 server.listen(PORT, HOST, () => {
   console.log(`${ENV.charAt(0).toUpperCase() + ENV.substring(1)} app listening at http://${server.address().address}:${server.address().port}`);

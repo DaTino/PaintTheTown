@@ -20,11 +20,11 @@
   "dependencies": {
     "@google/maps": "^0.5.5",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "googlemaps": "^1.12.0",
     "googleplaces": "^0.6.1",
-    "jquery": "^3.3.1",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.13",
     "node-geocoder": "^3.22.0"
