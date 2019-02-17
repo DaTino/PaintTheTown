@@ -9,6 +9,9 @@ const googleMapsClient = require('@google/maps').createClient({
   key: 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM'
 });
 
+var albertoKey = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
+var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
+
 const app = express();
 const server = require('http').Server(app);
 
@@ -27,20 +30,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Paint the Town',
-    ages: ['test1', 'test2', 'test3']
+    ages: config.userInput.ages,
+    events: config.userInput.events,
+    budgets: config.userInput.ages
   });
 });
 
-app.get('/redirect', (req, res) => {
-  res.render('redirect');
-});
+app.post('/map', (req, res) => {
+   var data = req.body;
+   var age = data.selectAge;
+   var outing = data.selectOut;
+   var budget = data.selectBudget;
 
-app.post('/test', (req, res) => {
-  res.redirect('index');
+   res.render('redirect');
 });
 
 app.get('/titties', (req, res) => {
-  var key = req.query.key;
+  var key = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
   var location = encodeURIComponent(req.query.location);
   var radius = 16000;
   var sensor = false;
@@ -61,6 +67,8 @@ app.get('/titties', (req, res) => {
       var locations = places.results;
       var randLoc = locations[Math.floor(Math.random() * locations.length)];
 
+      console.log(places);
+      console.log(locations);
       res.json(randLoc);
     });
   }).on('error', function(e) {
