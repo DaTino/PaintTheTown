@@ -67,12 +67,29 @@ app.post('/', (req, res) => {
 
 app.post('/', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
-  //var data = req.body;
-  //var age = data.selectAge;
-  var outing = "date"; //data.selectOut;
-  var budget = "2"; //data.selectBudget;
-  var location = "Philadelphia, PA"; //data.selectLocation;
-  var radius = 16090; //data.selectRadius * 1609 //meters conversion
+  var data = req.body;
+  var age = data.selectAge;
+
+  var outing = data.selectOut;
+  var outkey1 = "";
+  var outkey2 = "";
+  var outkey3 = "";
+  var outkey4 = "";
+  if (outing == "Business") {
+    outkey1 = "fine%20dining";
+    outkey2 = "cocktails";
+    outkey3 = "cafe";
+    outkey4 = "wine";
+  }
+  else if (outing == "Date") {
+
+  }
+
+  var budget = data.selectBudget;
+
+  var location = data.selectLocation;
+
+  var radius = 8045; //data.selectRadius * 1609 //meters conversion
 
   geocoder.geocode(location, function(err, res) {
     var latitude = res[0].latitude;
