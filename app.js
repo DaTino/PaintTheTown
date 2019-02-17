@@ -52,12 +52,93 @@ app.get('/', (req, res) => {
 
 app.post('/map', (req, res) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
-  //var data = req.body;
-  //var age = data.selectAge;
-  var outing = "date"; //data.selectOut;
-  var budget = "2"; //data.selectBudget;
-  var location = "Philadelphia, PA"; //data.selectLocation;
-  var radius = 16090; //data.selectRadius * 1609 //meters conversion
+  var data = req.body;
+
+  var age = data.selectAge;
+  if (data.selectAge == "13-29") {
+    age = "teens";
+  }
+  else if (data.selectAge == "20-29") {
+    age = "young%20adults"
+  }
+  else if (data.selectAge == "30-39" || "40-49") {
+    age = "professionals"
+  }
+  else if (data.selectAge == "50-59" || "60+") {
+    age = "seniors"
+  }
+  else {
+    age = "";
+  }
+
+  var outing =  data.selectOut;
+  if (data.selectOut == "Business") {
+    var outkey1 = "fine%20dining";
+    var outkey2 = "wine";
+    var outkey3 = "cocktails";
+    var outkey4 = "cafe";
+  }
+  else if (data.selectOut == "Date") {
+    var outkey1 = "theater";
+    var outkey2 = "restaurant";
+    var outkey3 = "bar";
+    var outkey4 = "park";
+  }
+  else if (data.selectOut == "Party") {
+    var outkey1 = "bar";
+    var outkey2 = "night%20club";
+    var outkey3 = "bowling";
+    var outkey4 = "music";
+  }
+  else if (data.selectOut == "Show") {
+    var outkey1 = "concert";
+    var outkey2 = "music";
+    var outkey3 = "theater";
+    var outkey4 = "movie";
+  }
+  else if (data.selectOut == "Sports") {
+    var outkey1 = "golf";
+    var outkey2 = "sports";
+    var outkey3 = "bowling";
+    var outkey4 = "rink";
+  }
+  else {
+    outkey1 = "";
+    outkey2 = "";
+    outkey3 = "";
+    outkey4 = "";
+  }
+  /*
+    keywords:
+    date = theaters, restaurants, bars, parks
+    show = concert, theaters, movies, music
+    sports = sports, rinks, bowling
+    business = dining, restaurants, wine
+  */
+  var budget = data.selectBudget;
+  if (data.selectBudget == "Free") {
+    budget = "0";
+  }
+  else if (data.selevtBudget == "$") {
+    budget = "1";
+  }
+  if (data.selectBudget == "$$") {
+    budget = "2";
+  }
+  if (data.selectBudget == "$$$") {
+    budget = "3";
+  }
+  if (data.selectBudget == "$$$$") {
+    budget = "4";
+  }
+  else {
+    budget = "";
+  }
+  /*
+    values between 0-4
+  */
+  var location = data.selectLocation;
+  var radius = 8045; //set to 5 miles data.selectRadius * 1609 //meters conversion
 
   geocoder.geocode(location, function(err, res) {
     var latitude = res[0].latitude;
@@ -65,8 +146,7 @@ app.post('/map', (req, res) => {
     console.log(latitude);
     console.log('here');
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius;
-    //+ "&keyword=" + outing + "&maxbudget=" + budget;
+      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outing1 + "&keyword=" + outing2 + "&keyword=" + outing3 + "&keyword=" + outing4 + "&keyword=" + age + "&maxbudget=" + budget;
     console.log(url);
     https.get(url, function(response) {
       var body = '';
@@ -88,17 +168,6 @@ app.post('/map', (req, res) => {
     console.log("Got error: I broke");
   });
 
-  //api stuff called
-  /*
-  https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
-  key
-  locations
-  radius
-  maxprice
-  keyword
-  rankby=prominence
-
-  */
 
   res.render('map');
 });
