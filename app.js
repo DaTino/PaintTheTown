@@ -65,7 +65,7 @@ app.post('/', (req, res) => {
   });
 });
 
-app.post('/map', (req, realres) => {
+app.post('/', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   //var data = req.body;
   //var age = data.selectAge;
@@ -124,16 +124,14 @@ app.post('/map', (req, realres) => {
           console.log(markerTitles)
         }
 
-        return realres.render('map', {
-          Location: markerLocations
+        realres.render('index', {
+          location: markerLocations
         });
         //response.json(locations);
       });
     });
   });
 });
-
-app.get('/locations', (req))
 
 app.get('/test', (req, res) => {
   res.render('test');
