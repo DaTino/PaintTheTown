@@ -55,48 +55,48 @@ app.post('/map', (req, realres) => {
   var data = req.body;
 
   var age = data.selectAge;
-  if (data.selectAge == "13-29") {
-    age = "teens";
+  if (age == "13-29") {
+    agekey = "teens";
   }
-  else if (data.selectAge == "20-29") {
-    age = "young%20adults"
+  else if (age == "20-29") {
+    agekey = "young%20adults"
   }
-  else if (data.selectAge == "30-39" || "40-49") {
-    age = "professionals"
+  else if (age == "30-39" || "40-49") {
+    agekey = "professionals"
   }
-  else if (data.selectAge == "50-59" || "60+") {
-    age = "seniors"
+  else if (age == "50-59" || "60+") {
+    agekey = "seniors"
   }
   else {
-    age = "";
+    agekey = "";
   }
 
   var outing =  data.selectOut;
-  if (data.selectOut == "Business") {
+  if (outing == "Business") {
     var outkey1 = "fine%20dining";
     var outkey2 = "wine";
     var outkey3 = "cocktails";
     var outkey4 = "cafe";
   }
-  else if (data.selectOut == "Date") {
+  else if (outing == "Date") {
     var outkey1 = "theater";
     var outkey2 = "restaurant";
     var outkey3 = "bar";
     var outkey4 = "park";
   }
-  else if (data.selectOut == "Party") {
+  else if (outing == "Party") {
     var outkey1 = "bar";
     var outkey2 = "night%20club";
     var outkey3 = "bowling";
     var outkey4 = "music";
   }
-  else if (data.selectOut == "Show") {
+  else if (outing == "Show") {
     var outkey1 = "concert";
     var outkey2 = "music";
     var outkey3 = "theater";
     var outkey4 = "movie";
   }
-  else if (data.selectOut == "Sports") {
+  else if (outing == "Sports") {
     var outkey1 = "golf";
     var outkey2 = "sports";
     var outkey3 = "bowling";
@@ -116,23 +116,23 @@ app.post('/map', (req, realres) => {
     business = dining, restaurants, wine
   */
   var budget = data.selectBudget;
-  if (data.selectBudget == "Free") {
-    budget = "0";
+  if (budget == "Free") {
+    budgetkey = "0";
   }
-  else if (data.selevtBudget == "$") {
-    budget = "1";
+  else if (budget == "$") {
+    budgekey = "1";
   }
-  if (data.selectBudget == "$$") {
-    budget = "2";
+  if (budget == "$$") {
+    budgetkey = "2";
   }
-  if (data.selectBudget == "$$$") {
-    budget = "3";
+  if (budget == "$$$") {
+    budgetkey = "3";
   }
-  if (data.selectBudget == "$$$$") {
-    budget = "4";
+  if (budget == "$$$$") {
+    budgetkey = "4";
   }
   else {
-    budget = "";
+    budgetkey = "";
   }
   /*
     values between 0-4
@@ -146,7 +146,7 @@ app.post('/map', (req, realres) => {
     console.log(latitude);
     console.log('here');
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outing1 + "&keyword=" + outing2 + "&keyword=" + outing3 + "&keyword=" + outing4 + "&keyword=" + age + "&maxbudget=" + budget;
+      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outing1 + "&keyword=" + outing2 + "&keyword=" + outing3 + "&keyword=" + outing4 + "&keyword=" + agekey + "&maxbudget=" + budgetkey;
     console.log(url);
     https.get(url, function(response) {
       var body = '';
@@ -204,8 +204,6 @@ app.post('/map', (req, realres) => {
   });
 });
 
-
-});
 
 app.get('/test', (req, res) => {
   res.render('test');
