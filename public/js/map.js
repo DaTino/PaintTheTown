@@ -48,6 +48,8 @@ function initMap() {
     });
     markers = [];
 
+
+
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
   });

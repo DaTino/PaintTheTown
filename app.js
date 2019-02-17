@@ -46,22 +46,8 @@ app.get('/', (req, res) => {
     title: 'Paint the Town',
     ages: config.userInput.ages,
     events: config.userInput.events,
-    budgets: config.userInput.budgets
-  });
-});
-
-app.post('/', (req, res) => {
-  console.log('testing');
-
-  var age = req.selectAge;
-  var outing = req.selectOut;
-  var budget = req.selectBudget;
-  var location = req.selectLocation;
-
-  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
-
-  res.render('index', {
-    title: 'Paint the Town'
+    budgets: config.userInput.budgets,
+    location: null
   });
 });
 
@@ -141,9 +127,7 @@ app.post('/', (req, realres) => {
           console.log(markerTitles)
         }
 
-        realres.render('index', {
-          location: markerLocations
-        });
+        realres.json(JSON.stringify(markerLocations));
         //response.json(locations);
       });
     });
@@ -165,7 +149,7 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-/*
+
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -188,7 +172,7 @@ app.use((err, req, res, next) => {
     });
   });
 });
-*/
+
 server.listen(PORT, HOST, () => {
   console.log(`${ENV.charAt(0).toUpperCase() + ENV.substring(1)} app listening at http://${server.address().address}:${server.address().port}`);
 });
