@@ -7,6 +7,8 @@
   100% {background-color:#e17055; color:white;}
 }
 
+
+
 .block {
   font-family:"Lobster";
   margin-top: 12px;
@@ -24,6 +26,15 @@
 
 .block:hover {
   animation: buttonRainbow 3s infinite;
+}
+
+@media only screen and (max-device-width: 666px){
+	.block{
+		width: 100%;
+	}
+	.cid-ricCsSnNom{
+		padding-top: 25px;
+	}
 }
 
 #pac-input {
