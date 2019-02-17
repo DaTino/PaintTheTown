@@ -50,56 +50,22 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/map', (req, res) => {
-  var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
-  //var data = req.body;
-  //var age = data.selectAge;
-  var outing = "date"; //data.selectOut;
-  var budget = "2"; //data.selectBudget;
-  var location = "Philadelphia, PA"; //data.selectLocation;
-  var radius = 16090; //data.selectRadius * 1609 //meters conversion
+app.post('/', (req, res) => {
+  console.log('testing');
 
-  geocoder.geocode(location, function(err, res) {
-    var latitude = res[0].latitude;
-    var longitude = res[0].longitude;
-    console.log(latitude);
-    console.log('here');
-    var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius;
-    //+ "&keyword=" + outing + "&maxbudget=" + budget;
-    console.log(url);
-    https.get(url, function(response) {
-      var body = '';
-      console.log('cock');
-      response.on('data', function(chunk) {
-        body += chunk;
-      });
-      console.log('piss');
-      response.on('end', function() {
-        var places = JSON.parse(body);
-        var locations = places.results;
-        console.log(locations);
-        //response.json(locations);
-      });
-    }).on('error', function() {
-      console.log("Got error: I broke");
-    });
-  }).on('error', function() {
-    console.log("Got error: I broke");
+  var age = req.selectAge;
+  var outing = req.selectOut;
+  var budget = req.selectBudget;
+  var location = req.selectLocation;
+
+  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
+
+  res.render('index', {
+    title: 'Paint the Town'
   });
+});
 
-  //api stuff called
-  /*
-  https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
-  key
-  locations
-  radius
-  maxprice
-  keyword
-  rankby=prominence
-
-  */
-
+app.get('/map', (req, res) => {
   res.render('map');
 });
 
