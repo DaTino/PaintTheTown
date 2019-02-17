@@ -13,12 +13,11 @@ const googleMapsClient = require('@google/maps').createClient({
 const nodeGeocoder = require('node-geocoder');
 const ngOptions = {
   provider: 'google',
-  httpAdapter: 'https', // Default
+  httpAdapter: 'https', // Defaultf
   apiKey: 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM', // for Mapquest, OpenCage, Google Premier
   formatter: null // 'gpx', 'string', ...
 };
 const geocoder = nodeGeocoder(ngOptions);
-
 
 var albertoKey = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
 var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
