@@ -27,16 +27,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Paint the Town',
-    ages: ['test1', 'test2', 'test3']
+    ages: config.userInput.ages,
+    events: config.userInput.events,
+    budgets: config.userInput.ages
   });
 });
 
-app.get('/redirect', (req, res) => {
-  res.render('redirect');
-});
+app.post('/map', (req, res) => {
+   var data = req.body;
+   var age = data.selectAge;
+   var outing = data.selectOut;
+   var budget = data.selectBudget;
 
-app.post('/test', (req, res) => {
-  res.redirect('index');
+   res.render('redirect');
 });
 
 app.get('/titties', (req, res) => {

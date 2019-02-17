@@ -19,6 +19,7 @@
   cursor: pointer;
   text-align: center;
   border-radius: 12px;
+  margin: 45px auto;
 }
 
 .block:hover {
