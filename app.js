@@ -51,7 +51,20 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/map', (req, realres) => {
+app.post('/', (req, res) => {
+  var age = req.selectAge;
+  var outing = req.selectOut;
+  var budget = req.selectBudget;
+  var location = req.selectLocation;
+
+  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
+
+  res.render('index', {
+    title: 'Paint the Town'
+  });
+});
+
+app.get('/map', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   var data = req.body;
 

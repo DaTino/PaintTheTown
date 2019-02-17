@@ -6,7 +6,7 @@ function initMap() {
       lat: -34.397,
       lng: 150.644
     },
-    zoom: 6
+    zoom: 12
   });
   infoWindow = new google.maps.InfoWindow;
 
@@ -48,10 +48,12 @@ function initMap() {
     });
     markers = [];
 
-
-
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
+  });
+
+  $.get('/map', function (data, status) {
+    console.log(data);
   });
 }
 
