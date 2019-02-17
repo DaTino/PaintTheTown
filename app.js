@@ -117,6 +117,8 @@ app.post('/', (req, realres) => {
   });
 });
 
+//app.get('/locations', (req))
+
 app.get('/test', (req, res) => {
   res.render('test');
 });
