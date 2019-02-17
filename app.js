@@ -134,8 +134,7 @@ app.post('/map', (req, realres) => {
     console.log(latitude);
     console.log('here');
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius;
-    + "&keyword=" + outkey1 + "&keyword=" + outkey2 + "&keyword=" + outkey3 + "&keyword=" + outkey4 + "&keyword=" + akey + "&maxbudget=" + bkey;
+      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outkey1 + "&keyword=" + outkey2 + "&keyword=" + outkey3 + "&keyword=" + outkey4 + "&keyword=" + akey + "&maxbudget=" + bkey;
     console.log(url);
     https.get(url, function(response) {
       var body = '';
