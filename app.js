@@ -81,7 +81,45 @@ app.post('/map', (req, res) => {
       }).on('error', function() {
           console.log("Got error: I broke" );
       });
-   });
+    }).on('error', function() {
+        console.log("Got error: I broke" );
+    });
+
+   //api stuff called
+   /*
+   https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
+   key
+   locations
+   radius
+   maxprice
+   keyword
+   rankby=prominence
+
+   */
+
+   res.render('map');
+});
+
+app.get('/test', (req, res) => {
+  res.render('test');
+});
+
+app.get('/titties', (req, res) => {
+  var key = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
+  var location = encodeURIComponent(req.query.location);
+  var radius = 16000;
+  var sensor = false;
+  var types = "restaurant";
+  var keyword = "fast";
+
+  var https = require('https');
+  var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + "key=" + key + "&location=" + location + "&radius=" + radius + "&sensor=" + sensor + "&types=" + types + "&keyword=" + keyword;
+    console.log(url);
+  https.get(url, function(response) {
+    var body ='';
+    response.on('data', function(chunk) {
+      body += chunk;
+    });
 
    res.render('map');
 });
