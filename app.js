@@ -5,6 +5,9 @@ const fs = require('fs');
 const process = require('process');
 const bodyParser = require('body-parser');
 const config = require('./config');
+const googleMapsClient = require('@google/maps').createClient({
+  key: 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM'
+});
 
 const app = express();
 const server = require('http').Server(app);
