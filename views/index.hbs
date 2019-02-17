@@ -22,7 +22,8 @@
 
 <body>
   <section class="header1 cid-ricuqQJmgu" id="header1-4" style="border-bottom: solid; border-bottom-width: 20px; border-color: #e17055;">
-    <div class="container">
+    <img src="https://i.ibb.co/DtrfJdt/pttlogo3.jpg" height="100%" width="100%"/>
+	<div class="container">
       <div class="row justify-content-md-center">
         <div class="mbr-white col-md-10">
         </div>
@@ -49,8 +50,8 @@
             <!-- <legend style="text-align:center">Let's paint the town!</legend> -->
             <!-- Select Basic -->
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age...</label>
-              <div class="col-md-4" style=" display: block; margin: 0 auto;">
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age...</label>
+              <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectAge" name="selectAge" class="form-control">
                   {{#each ages}}
                     <option value={{@index}}>{{this}}</option>
@@ -60,8 +61,8 @@
             </div>
             <!-- Select Basic -->
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px" for="selectOut">I'm going out for...</label>
-              <div class="col-md-4" style=" display: block; margin: 0 auto;">
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectOut">I'm going out for...</label>
+              <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectOut" name="selectOut" class="form-control">
                   {{#each this.events}}
                     <option value={{@index}}>{{this}}</option>
@@ -70,8 +71,8 @@
               </div>
             </div>
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px" for="selectBudget">My budget is...</label>
-              <div class="col-md-4" style=" display: block; margin: 0 auto;">
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectBudget">My budget is...</label>
+              <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <select id="selectBudget" name="selectBudget" class="form-control">
                   {{#each this.budgets}}
                     <option value={{@index}}>{{this}}</option>
@@ -80,8 +81,8 @@
               </div>
             </div>
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-4 control-label" style="font-family: Lobster; font-size: 24px" for="selectAddress">My city is...</label>
-              <div class="col-md-4" style=" display: block; margin: 0 auto;">
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectAddress">My city is...</label>
+              <div class="col-md-8" style=" display: block; margin: 0 auto;">
                 <input id="pac-input" class="controls" type="text" placeholder="Type City Here">
 
                 <div id="map" class="col-md-4"></div>

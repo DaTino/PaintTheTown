@@ -1835,18 +1835,13 @@ body {
   }
 }
 .cid-ricuqQJmgu {
-  padding-top: 135px;
-  padding-bottom: 50px;
-  background-image: url("../../../assets/images/pttlogo2-2000x667.jpg");
-  width: auto ;
-  max-width: 100% ;
-  height: auto ;
+  width: 100%;
   background-repeat:no-repeat;
   background-position:center;
   background-size:contain;
 }
 .cid-ricCsSnNom {
-  padding-top: 135px;
+  padding-top: 50px;
   padding-bottom: 90px;
   background-color: #ffffff;
 }
