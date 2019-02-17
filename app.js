@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/map', (req, res) => {
+app.post('/map', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   var data = req.body;
 
@@ -150,26 +150,61 @@ app.post('/map', (req, res) => {
     console.log(url);
     https.get(url, function(response) {
       var body = '';
-      console.log('cock');
       response.on('data', function(chunk) {
         body += chunk;
       });
-      console.log('piss');
       response.on('end', function() {
         var places = JSON.parse(body);
         var locations = places.results;
-        console.log(locations);
+        //console.log(locations);
+        var myObj = JSON.parse(body);
+        //console.log(myObj)
+        console.log(myObj.results[1])
+
+        var mylats = [];
+        var mylngs = [];
+        var markerLocations = [];
+        var markerTitles = [];
+        var markerIcons = [];
+        var markerPricing = [];
+        var markerRating = [];
+
+        for (var i = 1; i < myObj.results.length; i++) {
+          //console.log(myObj.results[i].vicinity);
+          mylats[i - 1] = myObj.results[i].geometry.location.lat
+          mylngs[i - 1] = myObj.results[i].geometry.location.lng
+          markerTitles[i - 1] = myObj.results[i].name
+          markerIcons[i - 1] = myObj.results[i].icon
+          markerPricing[i - 1] = myObj.results[i].price_level
+          markerRating[i - 1] = myObj.results[i].rating
+          //console.log(myObj.results[i].geometry.location.lat)
+          //console.log(myObj.results[i].geometry.location.lng)
+          console.log(mylats[i - 1])
+          console.log(mylngs[i - 1])
+        }
+
+        for (var i = 0; i < mylats.length; i++) {
+          markerLocations[i] = mylats[i] + ", " + mylngs[i];
+          console.log(markerLocations)
+          console.log(markerTitles)
+        }
+
+        return realres.render('map', {
+          Location: markerLocations
+        });
         //response.json(locations);
       });
-    }).on('error', function() {
-      console.log("Got error: I broke");
     });
-  }).on('error', function() {
-    console.log("Got error: I broke");
   });
 
+  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
 
-  res.render('map');
+  res.render('index', {
+    title: 'Paint the Town'
+  });
+});
+
+
 });
 
 app.get('/test', (req, res) => {
@@ -185,7 +220,7 @@ app.use((req, res, next) => {
   err.status = 404;
   next(err);
 });
-
+/*
 if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -197,6 +232,7 @@ if (app.get('env') === 'development') {
   });
 }
 
+
 app.use((err, req, res, next) => {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -207,7 +243,7 @@ app.use((err, req, res, next) => {
     });
   });
 });
-
+*/
 server.listen(PORT, HOST, () => {
   console.log(`${ENV.charAt(0).toUpperCase() + ENV.substring(1)} app listening at http://${server.address().address}:${server.address().port}`);
 });

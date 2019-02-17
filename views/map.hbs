@@ -24,16 +24,21 @@
           <canvas id="barchart1"></canvas>
     </div-->
   </div>
-  </div>
   <div id="map">
   </div>
+    <ul>
+  {{#each Location}}
+    <li>{{this}}</li>
+  {{/each}}
+</ul>
   <div id="right-bar"><button class="openbtn" onclick="openNav()">&#9776;</button>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+  <script src="/js/charts.js"></script>
   <script src="/js/map.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM&callback=initAutocomplete" async defer></script>
   <script>
     openNav();
   </script>

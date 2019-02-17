@@ -1,8 +1,7 @@
 /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 function openNav() {
-  document.getElementById("mySidebar").style.width = "450px";
-  document.getElementById("right-bar").style.marginRight = "0";
-
+  document.getElementById("mySidebar").style.width = "100%";
+  document.getElementById("left-bar").style.marginRight = "0";
 
   var myBarChart = new Chart(document.getElementById("myBarChart"), {
     type: 'bar',
@@ -55,8 +54,6 @@ function openNav() {
       cutoutPercentage: 80,
     },
   });
-
-
 }
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */

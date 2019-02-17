@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="/assets/theme/css/style.css">
   <link rel="stylesheet" href="/assets/mobirise/css/mbr-additional.css" type="text/css">
   <link rel="stylesheet" href="/css/styles.css" type="text/css">
+  <link rel="stylesheet" href="/css/map.css" type="text/css">
 </head>
 
 <body>
@@ -30,6 +31,7 @@
     </div>
   </section>
 
+</div>
   <section class="mbr-section form1 cid-ricIqtIjVP" id="form1-h">
     <div class="container">
       <div class="row justify-content-center">
@@ -44,14 +46,14 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="media-container-column col-lg-8" data-form-type="formoid">
-          <form id="myForm" class="form-horizontal" action="/map" method="post">
+          <form id="myForm" class="form-horizontal" action="/" method="post">
             <!-- Form Name -->
             <!-- <legend style="text-align:center">Let's paint the town!</legend> -->
             <!-- Select Basic -->
             <div class="form-group" style="text-align:center; margin-top: 12px">
               <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px;" for="selectAge">My age is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <input class="controls" style="width: 100%; padding-left: 8px; height: 50px; background-color: #F8F8F8;" type="text" placeholder="Type your age here...">
+                <input class="controls" style="width: 100%; padding-left: 8px; height: 50px; background-color: #F8F8F8;" type="text" name="selectAge" placeholder="Type your age here...">
               </div>
             </div>
             <!-- Select Basic -->
@@ -76,17 +78,26 @@
               </div>
             </div>
             <div class="form-group" style="text-align:center; margin-top: 12px">
-              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectAddress">The location is...</label>
+              <label class="col-md-8 control-label" style="font-family: Lobster; font-size: 24px" for="selectLocation">The location is...</label>
               <div class="col-md-8" style=" display: block; margin: 0 auto;">
-                <input id="pac-input" class="controls" type="text" placeholder="Type a location here...">
+                <input id="pac-input" class="controls" type="text" name="selectLocation" placeholder="Type a location here...">
               </div>
             </div>
-            <input class="block col-md-10" type="submit" value="Paint!" style="color:white; text-align: center;" onclick="document.getElementById('myForm').submit()" />
+            <input id="paint" class="block col-md-10" type="submit" value="Paint!" onclick="document.getElementById('myForm').submit();" />
           </form>
         </div>
       </div>
     </div>
   </section>
+</div>
+
+  <div class="map-container">
+    <div id="mySidebar" class="sidebar">
+      <div id="left-bar"><button class="closebtn" onclick="closeNav()">&#x3c;</button></div>
+    </div>
+    <div id="map"></div>
+    <div id="left-bar"><button class="openbtn" onclick="openNav()">&#x3e;</button></div>
+  </div>
 
   <section class="engine"><a href="https://mobirise.info/x">css templates</a></section>
   <section class="features8 cid-ricCsSnNom" id="features8-7">
@@ -129,24 +140,26 @@
       <div class="media-container-row align-center mbr-white">
         <div class="col-12">
           <p class="mbr-text mb-0 mbr-fonts-style display-7">
-            © Copyright 2019 Panic!AtTheDisco Inc. - All Rights Reserved
+            © Copyright 2019 Panic!AtTheDisco
           </p>
         </div>
       </div>
     </div>
   </section>
 
-  <script src="/assets/web/assets/jquery/jquery.min.js"></script>
+  <!--<script src="/assets/web/assets/jquery/jquery.min.js"></script>-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/assets/popper/popper.min.js"></script>
   <script src="/assets/tether/tether.min.js"></script>
   <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
   <script src="/assets/smoothscroll/smooth-scroll.js"></script>
   <script src="/assets/theme/js/script.js"></script>
   <script src="/assets/formoid/formoid.min.js"></script>
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw&callback=initMap"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
   <script src="/js/map.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw&libraries=places&callback=initMap"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
   <script src="/js/charts.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 
 </html>
