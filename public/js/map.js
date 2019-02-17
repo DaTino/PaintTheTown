@@ -1,19 +1,13 @@
-// Note: This example requires that you consent to location sharing when
-// prompted by your browser. If you see the error "The Geolocation service
-// failed.", it means you probably did not give permission for the browser to
-// locate you.
 var map, infoWindow;
 
-function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -33.8688,
-      lng: 151.2195
+      lat: -34.397,
+      lng: 150.644
     },
-    zoom: 13,
-    mapTypeId: 'roadmap'
+    zoom: 6
   });
-
   infoWindow = new google.maps.InfoWindow;
 
   // Try HTML5 geolocation.
@@ -36,23 +30,19 @@ function initAutocomplete() {
     handleLocationError(false, infoWindow, map.getCenter());
   }
 
-  // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
-  map.controls[google.maps.ControlPosition.TOP].push(input);
-
-  // Bias the SearchBox results towards current map's viewport.
-  map.addListener('bounds_changed', function() {
-    searchBox.setBounds(map.getBounds());
-  });
+  console.log('testing1');
 
   var markers = [];
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
+  console.log(searchBox);
   searchBox.addListener('places_changed', function() {
     var places = searchBox.getPlaces();
-
+    console.log('places');
     if (places.length == 0) {
+      console.log('0');
       return;
     }
 
@@ -64,35 +54,7 @@ function initAutocomplete() {
 
     // For each place, get the icon, name and location.
     var bounds = new google.maps.LatLngBounds();
-    places.forEach(function(place) {
-      if (!place.geometry) {
-        console.log("Returned place contains no geometry");
-        return;
-      }
-      var icon = {
-        url: place.icon,
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-
-      // Create a marker for each place.
-      markers.push(new google.maps.Marker({
-        map: map,
-        icon: icon,
-        title: place.name,
-        position: place.geometry.location
-      }));
-
-      if (place.geometry.viewport) {
-        // Only geocodes have viewport.
-        bounds.union(place.geometry.viewport);
-      } else {
-        bounds.extend(place.geometry.location);
-      }
-    });
-    map.fitBounds(bounds);
+    console.log('end');
   });
 }
 

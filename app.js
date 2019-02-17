@@ -117,17 +117,12 @@ app.post('/map', (req, realres) => {
     });
   });
 
-  //api stuff called
-  /*
-  https://maps.googleapis.com/maps/api/place/nearbysearch/output?parameters
-  key
-  locations
-  radius
-  maxprice
-  keyword
-  rankby=prominence
+  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
 
-  */
+  res.render('index', {
+    title: 'Paint the Town'
+  });
+});
 
 
 });
