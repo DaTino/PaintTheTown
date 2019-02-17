@@ -51,10 +51,24 @@ app.get('/', (req, res) => {
   });
 });
 
-app.post('/', (req, realres) => {
+app.post('/map', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   var data = req.body;
+
   var age = data.selectAge;
+  var akey = "";
+  if (age = "13-19") {
+    akey = "teen";
+  }
+  else if (age == "20-29") {
+    akey = "young%20adult";
+  }
+  else if (age == "30-39" || "40-49") {
+    akey = "professionals";
+  }
+  else if (age == "50-59" || "60+") {
+    akey = "seniors";
+  }
 
   var outing = data.selectOut;
   var outkey1 = "";
@@ -68,10 +82,47 @@ app.post('/', (req, realres) => {
     outkey4 = "wine";
   }
   else if (outing == "Date") {
-
+    outkey1 = "restaurant";
+    outkey2 = "bar";
+    outkey3 = "theater";
+    outkey4 = "park";
+  }
+  else if (outing == "Party") {
+    outkey1 = "club";
+    outkey2 = "bar";
+    outkey3 = "sports";
+    outkey4 = "music";
+  }
+  else if (outing == "Show") {
+    outkey1 = "music";
+    outkey2 = "theater";
+    outkey3 = "movie";
+    outkey4 = "comedy";
+  }
+  else if (outing == "Sports") {
+    outkey1 = "golf";
+    outkey2 = "bowling";
+    outkey3 = "sports";
+    outkey4 = "park";
   }
 
   var budget = data.selectBudget;
+  var bkey = ""
+  if (budget == "Free" ) {
+    bkey = "0";
+  }
+  else if (budget == "$") {
+    bkey = "1";
+  }
+  else if (budget == "$") {
+    bkey = "2";
+  }
+  else if (budget == "$$") {
+    bkey = "3";
+  }
+  else if (budget == "$$$") {
+    bkey = "4";
+  }
 
   var location = data.selectLocation;
 
@@ -84,8 +135,8 @@ app.post('/', (req, realres) => {
     console.log('here');
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
       "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius;
-    //+ "&keyword=" + outing + "&maxbudget=" + budget;
-    //console.log(url);
+    + "&keyword=" + outkey1 + "&keyword=" + outkey2 + "&keyword=" + outkey3 + "&keyword=" + outkey4 + "&keyword=" + akey + "&maxbudget=" + bkey;
+    console.log(url);
     https.get(url, function(response) {
       var body = '';
       response.on('data', function(chunk) {
