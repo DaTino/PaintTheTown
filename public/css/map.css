@@ -5,7 +5,7 @@
 .map-container {
   position: relative;
   display: block;
-  width: calc(100vw - 0.5vw);
+  width: 100vw;
   height: 100vh;
   align-items: center;
   justify-content: center;

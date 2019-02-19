@@ -20,6 +20,18 @@ const ngOptions = {
 const geocoder = nodeGeocoder(ngOptions);
 const cors = require('cors');
 
+var MongoClient = require('mongodb').MongoClient;
+//Create a database named "mydb":
+var url = "mongodb://jaredible.net:27017/mydb";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+
+
+
 var albertoKey = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
 var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
 
@@ -88,7 +100,7 @@ app.get('/map', (req, realres) => {
   var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
   var data = req.body;
 
-  var age = data.selectAge || 1;
+  var age = data.selectAge || 0;
   var akey = "";
   if (age == 1) {
     akey = "teen";
@@ -100,7 +112,7 @@ app.get('/map', (req, realres) => {
     akey = "seniors";
   }
 
-  var outing = data.selectOut || 1;
+  var outing = data.selectOut || 0;
   console.log(outing);
   var outkey1 = "";
   var outkey2 = "";
@@ -133,7 +145,7 @@ app.get('/map', (req, realres) => {
     outkey4 = "park";
   }
 
-  var budget = data.selectBudget || 1;
+  var budget = data.selectBudget || 0;
   console.log(budget);
   var bkey = ""
   if (budget == 1) {
@@ -148,7 +160,7 @@ app.get('/map', (req, realres) => {
     bkey = "4";
   }
 
-  var location = data.selectLocation || "St. Louis, MO";
+  var location = data.selectLocation || "";
 
   var radius = 8045; //data.selectRadius * 1609 //meters conversion
 

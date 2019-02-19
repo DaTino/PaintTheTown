@@ -25,7 +25,7 @@
     "express-handlebars": "^3.0.0",
     "googlemaps": "^1.12.0",
     "googleplaces": "^0.6.1",
-    "mongodb": "^3.1.13",
+    "mongodb": "^2.2.33",
     "mongoose": "^5.4.13",
     "node-geocoder": "^3.22.0"
   }

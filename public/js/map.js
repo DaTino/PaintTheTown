@@ -3,8 +3,8 @@ var map, infoWindow;
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {
-      lat: -34.397,
-      lng: 150.644
+      lat: 38.6270,
+      lng: -90.1994
     },
     zoom: 16
   });
@@ -21,13 +21,32 @@ function initMap() {
       infoWindow.setPosition(pos);
       infoWindow.setContent('Location found.');
       infoWindow.open(map);
-      map.setCenter(pos);
+      // map.setCenter(pos);
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
   } else {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
+  }
+
+  var geocoder = new google.maps.Geocoder();
+  var location = $('#pac-input').val() || "";
+
+  if (location) {
+    geocoder.geocode({
+      'address': location
+    }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        var lat = results[0].geometry.location.lat();
+        var lng = results[0].geometry.location.lng();
+        map.setCenter({
+          lat: lat,
+          lng: lng
+        });
+        alert(lat + ' ' + lng);
+      }
+    });
   }
 
   var input = document.getElementById('pac-input');
@@ -66,12 +85,14 @@ function initMap() {
         console.log(loc);
 
         var myLatlng = new google.maps.LatLng(parseFloat(loc[0]), parseFloat(loc[1]));
-        var mapOptions = {
-        }
+        var mapOptions = {}
 
         var marker = new google.maps.Marker({
           position: myLatlng,
-          title: "Hello World!"
+          title: "Hello World!",
+          icon: {
+            url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          }
         });
 
         marker.setMap(map);
