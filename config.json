@@ -1,5 +1,5 @@
 {
-  "userInput": {
+  "options": {
     "ages": ["Select an Option", "13-19", "20-29", "30-39", "40-49", "50-59", "60+"],
     "events": ["Select an Option", "Business", "Date", "Party", "Show", "Sports"],
     "budgets": ["Select an Option", "Free", "$", "$$", "$$$", "$$$$"]

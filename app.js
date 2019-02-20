@@ -1,39 +1,36 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+
 const http = require('http');
 const https = require('https');
+
 const path = require('path');
 const fs = require('fs');
 const process = require('process');
+
 const bodyParser = require('body-parser');
-const config = require('./config');
-const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM'
-});
-const nodeGeocoder = require('node-geocoder');
-const ngOptions = {
-  provider: 'google',
-  httpAdapter: 'https', // Defaultf
-  apiKey: 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM', // for Mapquest, OpenCage, Google Premier
-  formatter: null // 'gpx', 'string', ...
-};
-const geocoder = nodeGeocoder(ngOptions);
 const cors = require('cors');
 
+const config = require('./config');
+const private = require('./private.json');
+
+const googleMapsClient = require('@google/maps').createClient({key: private.googleMapAPIKey});
+const nodeGeocoder = require('node-geocoder');
+const geocoder = nodeGeocoder({
+  provider: 'google',
+  httpAdapter: 'https', // Defaultf
+  apiKey: private.googleMapAPIKey, // for Mapquest, OpenCage, Google Premier
+  formatter: null // 'gpx', 'string', ...
+});
+
 var MongoClient = require('mongodb').MongoClient;
-//Create a database named "mydb":
-var url = "mongodb://jaredible.net:27017/mydb";
+var url = "mongodb://jaredible.net:27017/";
 
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
-  console.log("Database created!");
+  console.log("Connected!");
   db.close();
 });
-
-
-
-var albertoKey = 'AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM';
-var jaredKey = 'AIzaSyCCuO6urauhG_XFJvRRwet5r7_kpPBd6Cw';
 
 const app = express();
 const server = http.Server(app);
@@ -41,8 +38,9 @@ const server = http.Server(app);
 const PORT = process.env.port || 8080;
 const HOST = process.env.host || 'localhost';
 const ENV = app.get('env');
+const DEBUG = process.env.debug || false;
 
-var hbs = exphbs.create({
+app.engine('hbs', exphbs.create({
   extname: '.hbs',
   helpers: {
     if_eq: function(a, b, opts) {
@@ -53,24 +51,22 @@ var hbs = exphbs.create({
       }
     }
   }
-});
-app.engine('hbs', hbs.engine);
-app.set('views', path.join(__dirname, 'views'));
+}).engine);
+
 app.set('view engine', 'hbs');
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Paint the Town',
     age: "",
-    events: config.userInput.events,
-    budgets: config.userInput.budgets,
+    events: config.options.events,
+    budgets: config.options.budgets,
     location: "",
     currentEvent: "",
     currentBudget: ""
@@ -83,37 +79,34 @@ app.post('/', (req, res) => {
   var budget = req.body.selectBudget;
   var location = req.body.selectLocation;
 
-  console.log('age:' + age + ' outing:' + outing + ' budget:' + budget + ' location:' + location);
-
   res.render('index', {
     title: 'Paint the Town',
     age: age,
-    events: config.userInput.events,
-    budgets: config.userInput.budgets,
+    events: config.options.events,
+    budgets: config.options.budgets,
     location: location,
     currentEvent: outing,
     currentBudget: budget
   });
 });
 
-app.get('/map', (req, realres) => {
-  var key = "AIzaSyAStlYQh66ZsHEE9OUqT1KXo9VC8t3TEyM";
+app.get('/map', (req, res) => {
+  var key = private.googleMapAPIKey;
   var data = req.body;
 
   var age = data.selectAge || 0;
-  var akey = "";
+  var keyA = "";
   if (age == 1) {
-    akey = "teen";
+    keyA = "teen";
   } else if (age == 2) {
-    akey = "young%20adult";
+    keyA = "young%20adult";
   } else if (age == 3 || age == 4) {
-    akey = "professionals";
+    keyA = "professionals";
   } else if (age == 5 || age == 6) {
-    akey = "seniors";
+    keyA = "seniors";
   }
 
   var outing = data.selectOut || 0;
-  console.log(outing);
   var outkey1 = "";
   var outkey2 = "";
   var outkey3 = "";
@@ -146,90 +139,89 @@ app.get('/map', (req, realres) => {
   }
 
   var budget = data.selectBudget || 0;
-  console.log(budget);
-  var bkey = ""
+  var keyMaxBudget = ""
   if (budget == 1) {
-    bkey = "0";
+    keyMaxBudget = "0";
   } else if (budget == 2) {
-    bkey = "1";
+    keyMaxBudget = "1";
   } else if (budget == 3) {
-    bkey = "2";
+    keyMaxBudget = "2";
   } else if (budget == 4) {
-    bkey = "3";
+    keyMaxBudget = "3";
   } else if (budget == 5) {
-    bkey = "4";
+    keyMaxBudget = "4";
   }
 
   var location = data.selectLocation || "";
+
+  if (DEBUG) {
+    console.log('age: ' + age + ' outing: ' + outing + ' budget: ' + budget + ' location: ' + location);
+    console.log('keyA: ' + keyA); // TODO
+  }
 
   var radius = 8045; //data.selectRadius * 1609 //meters conversion
 
   geocoder.geocode(location, function(err, res) {
     var latitude = res[0].latitude;
     var longitude = res[0].longitude;
-    console.log(latitude);
-    console.log('here');
-    var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" +
-      "key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outkey1 + "&keyword=" + outkey2 + "&keyword=" + outkey3 + "&keyword=" + outkey4 + "&keyword=" + akey + "&maxbudget=" + bkey;
-    console.log(url);
-    https.get(url, function(response) {
+
+    if (DEBUG) console.log('latitude: ' + latitude + ' longitude: ' + longitude);
+
+    var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + key + "&location=" + latitude + "," + longitude + "&radius=" + radius + "&keyword=" + outkey1 + "&keyword=" + outkey2 + "&keyword=" + outkey3 + "&keyword=" + outkey4 + "&keyword=" + keyA + "&maxbudget=" + keyMaxBudget;
+
+    if (DEBUG) console.log('url: ' + url);
+
+    https.get(url, function(res) {
       var body = '';
-      response.on('data', function(chunk) {
+
+      res.on('data', function(chunk) {
         body += chunk;
       });
-      response.on('end', function() {
+
+      res.on('end', function() {
         var places = JSON.parse(body);
         var locations = places.results;
-        //console.log(locations);
-        var myObj = JSON.parse(body);
-        console.log(myObj)
-        // console.log(myObj.results[1])
+        var data = JSON.parse(body);
 
-        var mylats = [];
-        var mylngs = [];
+        if (DEBUG) console.log('data: ' + data);
+
+        var myLats = [];
+        var myLngs = [];
+        var markerTitles = []; // TODO use
+        var markerIcons = []; // TODO use
+        var markerPricing = []; // TODO use
+        var markerRating = []; // TODO use
+
+        for (var i = 1; i < data.results.length; i++) {
+          myLats[i - 1] = data.results[i].geometry.location.lat;
+          myLngs[i - 1] = data.results[i].geometry.location.lng;
+          markerTitles[i - 1] = data.results[i].name;
+          markerIcons[i - 1] = data.results[i].icon;
+          markerPricing[i - 1] = data.results[i].price_level;
+          markerRating[i - 1] = data.results[i].rating;
+
+          if (DEBUG) {
+            console.log(myLats[i - 1]);
+            console.log(myLngs[i - 1]);
+          }
+        }
+
         var markerLocations = [];
-        var markerTitles = [];
-        var markerIcons = [];
-        var markerPricing = [];
-        var markerRating = [];
 
-        for (var i = 1; i < myObj.results.length; i++) {
-          //console.log(myObj.results[i].vicinity);
-          mylats[i - 1] = myObj.results[i].geometry.location.lat
-          mylngs[i - 1] = myObj.results[i].geometry.location.lng
-          markerTitles[i - 1] = myObj.results[i].name
-          markerIcons[i - 1] = myObj.results[i].icon
-          markerPricing[i - 1] = myObj.results[i].price_level
-          markerRating[i - 1] = myObj.results[i].rating
-          //console.log(myObj.results[i].geometry.location.lat)
-          //console.log(myObj.results[i].geometry.location.lng)
-          console.log(mylats[i - 1])
-          console.log(mylngs[i - 1])
+        for (var i = 0; i < myLats.length; i++) {
+          markerLocations[i] = myLats[i] + ', ' + myLngs[i];
+
+          if (DEBUG) {
+            console.log(markerLocations);
+            console.log(markerTitles);
+          }
         }
 
-        for (var i = 0; i < mylats.length; i++) {
-          markerLocations[i] = mylats[i] + ", " + mylngs[i];
-          console.log(markerLocations)
-          console.log(markerTitles)
-        }
-
-        realres.json(markerLocations);
-        //response.json(locations);
+        res.json(markerLocations);
       });
     });
   });
 });
-
-//app.get('/locations', (req))
-
-app.get('/test', (req, res) => {
-  res.render('test');
-});
-
-app.get('/test2', (req, res) => {
-  res.render('test2');
-});
-
 
 server.listen(PORT, HOST, () => {
   console.log(`${ENV.charAt(0).toUpperCase() + ENV.substring(1)} app listening at http://${server.address().address}:${server.address().port}`);
