@@ -94,7 +94,7 @@ app.get('/map', (req, res) => {
   var key = private.googleMapAPIKey;
   var data = req.body;
 
-  var age = data.selectAge || 0;
+  var age = data.selectAge || 1;
   var keyA = "";
   if (age == 1) {
     keyA = "teen";
@@ -106,7 +106,7 @@ app.get('/map', (req, res) => {
     keyA = "seniors";
   }
 
-  var outing = data.selectOut || 0;
+  var outing = data.selectOut || 1;
   var outkey1 = "";
   var outkey2 = "";
   var outkey3 = "";
@@ -138,7 +138,7 @@ app.get('/map', (req, res) => {
     outkey4 = "park";
   }
 
-  var budget = data.selectBudget || 0;
+  var budget = data.selectBudget || 1;
   var keyMaxBudget = ""
   if (budget == 1) {
     keyMaxBudget = "0";
